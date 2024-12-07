@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DbGears xmlns="http://chameleon.ibs-qa.ru/schema/db">
+    <Connection name="H2" url="jdbc:h2:tcp://localhost:9092/mem:testdb;DB_CLOSE_DELAY=-1;user=#{user};password=#{password}" driver="org.h2.Driver" autoCommit="true">
+        <Params>
+            <FieldString name="Пользователь" locator="user"/>
+            <FieldString name="Пароль" locator="password"/>
+        </Params>
+    </Connection>
+    <Query name="Проверка существования строки"
+           statement="SELECT COUNT(FOOD_ID) FROM FOOD WHERE FOOD_NAME = :name AND FOOD_TYPE = :type AND FOOD_EXOTIC = :exotic">
+        <Params>
+            <FieldString name="Наименование" locator="name"/>
+            <FieldString name="Тип" locator="type"/>
+            <FieldInteger name="Экзотический" locator="exotic"/>
+        </Params>
+        <Result>
+            <FieldInteger name="Количество строк" locator="COUNT(FOOD_ID)"/>
+        </Result>
+    </Query>
+    <Query name="Удаление строк(и)"
+           statement="DELETE FROM FOOD WHERE FOOD_NAME = :name AND FOOD_TYPE = :type AND FOOD_EXOTIC = :exotic">
+        <Params>
+            <FieldString name="Наименование" locator="name"/>
+            <FieldString name="Тип" locator="type"/>
+            <FieldInteger name="Экзотический" locator="exotic"/>
+        </Params>
+    </Query>
+    <Query name="Добавление строки" statement="INSERT INTO FOOD VALUES (DEFAULT,:name,:type,:exotic)">
+        <Params>
+            <FieldString name="Наименование" locator="name"/>
+            <FieldString name="Тип" locator="type"/>
+            <FieldInteger name="Экзотический" locator="exotic"/>
+        </Params>
+    </Query>
+    <Query name="Все товары" statement="select * from FOOD"/>
+</DbGears>
